@@ -21,15 +21,9 @@ import {
 } from '@dagonmetric/ng-log';
 
 import { GTag } from './gtag';
-import { GTAG_LOGGER_OPTIONS, GTagLogger, GTagLoggerOptions } from './gtag-logger';
-import { GTagPropertiesMapper } from './gtag-properties-mapper';
+import { GTAG_LOGGER_OPTIONS, GTagLogger, GTagLoggerOptions, GTagLoggerOptionsInternal } from './gtag-logger';
 
 declare let gtag: GTag;
-
-export interface GTagConfig {
-    measurementId: string;
-    customMap?: { [key: string]: string };
-}
 
 /**
  * Logger provider factory for `GTagLogger`.
@@ -38,12 +32,11 @@ export interface GTagConfig {
     providedIn: 'root'
 })
 export class GTagLoggerProvider extends Logger implements LoggerProvider {
-    private readonly _options: GTagLoggerOptions;
-    private readonly _propertiesMapper: GTagPropertiesMapper;
+    private readonly _options: GTagLoggerOptionsInternal;
 
-    private readonly _gtag?: GTag;
     private readonly _isBrowser: boolean;
-    private _currentLogger: GTagLogger | undefined;
+    private _currentLogger?: GTagLogger;
+    private readonly _gtag?: GTag;
 
     get name(): string {
         return 'gtag';
@@ -57,10 +50,13 @@ export class GTagLoggerProvider extends Logger implements LoggerProvider {
         this._currentLogger = new GTagLogger(
             '',
             this._options,
-            this._propertiesMapper,
             this._gtag);
 
         return this._currentLogger;
+    }
+
+    set measurementId(value: string) {
+        this._options.measurementId = value;
     }
 
     constructor(
@@ -68,33 +64,23 @@ export class GTagLoggerProvider extends Logger implements LoggerProvider {
         @Optional() @Inject(GTAG_LOGGER_OPTIONS) options?: GTagLoggerOptions) {
         super();
         this._isBrowser = isPlatformBrowser(platformId);
-        this._options = options || {
-            measurementId: ''
+        this._options = {
+            measurementId: '',
+            ...options
         };
-        this._propertiesMapper = new GTagPropertiesMapper();
 
         // tslint:disable-next-line: no-typeof-undefined
-        if (this._isBrowser && typeof gtag !== 'undefined' && gtag) {
+        if (this._isBrowser && typeof gtag !== 'undefined') {
             // tslint:disable-next-line: no-any
             this._gtag = gtag;
         }
 
     }
 
-    setConfig(config: GTagConfig): void {
-        if (config.measurementId) {
-            this._options.measurementId = config.measurementId;
-        }
-        if (config.customMap) {
-            this._options.customMap = config.customMap;
-        }
-    }
-
     createLogger(category: string): Logger {
         return new GTagLogger(
             category,
             this._options,
-            this._propertiesMapper,
             this._gtag);
     }
 
@@ -106,7 +92,7 @@ export class GTagLoggerProvider extends Logger implements LoggerProvider {
         //     return;
         // }
 
-        // this._gtag('config', this._measurementId, {
+        // this._gtag('config', this._options.measurementId, {
         //     user_id: userId
         // });
     }

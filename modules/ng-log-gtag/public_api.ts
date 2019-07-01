@@ -6,7 +6,6 @@
  * found under the LICENSE file in the root directory of this source tree.
  */
 
- export * from './src/gtag-logger-provider';
- export * from './src/gtag-logger.module';
- export * from './src/gtag-logger';
-  export * from './src/gtag';
+export { GTagLoggerProvider } from './src/gtag-logger-provider';
+export { GTagLoggerModule } from './src/gtag-logger.module';
+export { GTAG_LOGGER_OPTIONS, GTagLoggerOptions } from './src/gtag-logger';

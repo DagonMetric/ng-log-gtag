@@ -17,7 +17,7 @@ The following npm packages are required before using this module.
 
 * @angular/common >= v8.0.0-beta.0
 * @angular/core >= v8.0.0-beta.0
-* @dagonmetric/ng-log >= v2.0.0
+* @dagonmetric/ng-log >= v2.1.0
 
 ### Add the global site tag
 
@@ -95,22 +95,22 @@ export class AppComponent implements OnInit {
     // Track custom event
     this._logService.trackEvent({
       name: 'video_auto_play_start',
-      eventLabel: 'My promotional video',
-      eventCategory: 'video_auto_play',
+      event_label: 'My promotional video',
+      event_category: 'video_auto_play',
       properties: {
-        nonInteraction: true
+        non_interaction: true
       }
     });
 
     // Track custom event with metrics
     this._logService.trackEvent({
       name: 'foo',
-      customMap: {
+      custom_map: {
         dimension2: 'age',
-        metric5: 'avgPageLoadTime'
+        metric5: 'avg_page_load_time'
       },
       measurements: {
-        avgPageLoadTime: 1
+        avg_page_load_time: 1
       },
       properties: {
         age: 12
@@ -120,10 +120,10 @@ export class AppComponent implements OnInit {
     // Track custom event with timing
     this._logService.startTrackEvent('video_auto_play');
     this._logService.stopTrackEvent('video_auto_play', {
-      eventLabel: 'My promotional video',
-      eventCategory: 'video_auto_play',
+      event_label: 'My promotional video',
+      event_category: 'video_auto_play',
       properties: {
-        nonInteraction: true
+        non_interaction: true
       }
     });
 

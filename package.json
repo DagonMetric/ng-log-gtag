@@ -1,6 +1,6 @@
 {
   "name": "ng-log-gtag",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "author": "DagonMetric",
   "license": "MIT",
@@ -23,7 +23,7 @@
   "dependencies": {
     "@angular/common": "^8.0.3",
     "@angular/core": "^8.0.3",
-    "@dagonmetric/ng-log": "^2.0.0",
+    "@dagonmetric/ng-log": "^2.1.0",
     "rxjs": "^6.5.2",
     "tslib": "^1.10.0"
   },
