@@ -39,6 +39,11 @@ describe('GTagLoggerProvider', () => {
     it('should be created', () => {
         expect(loggerProvider).toBeDefined();
         expect(loggerProvider.name).toBe('gtag');
+
+        // Coverage only
+        loggerProvider.setUserProperties('user1', 'account1');
+        loggerProvider.clearUserProperties();
+        loggerProvider.measurementId = '';
     });
 
     it("should create a new logger instance with 'createLogger' method", () => {

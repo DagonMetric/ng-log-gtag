@@ -52,6 +52,8 @@ export class GTagLogger extends Logger {
 
             const customMap = this.getCustomMap(mappedProps, logInfo && logInfo.custom_map ? logInfo.custom_map : undefined);
             if (customMap) {
+                this.setMappedUserProps(mappedProps, customMap);
+
                 this._gtag('config', this._options.measurementId, {
                     custom_map: customMap
                 });
@@ -59,14 +61,14 @@ export class GTagLogger extends Logger {
 
             this._gtag('event', 'exception', mappedProps);
         } else {
-            let level = '';
+            let level: string;
             if (logLevel === LogLevel.Trace) {
                 level = 'trace';
             } else if (logLevel === LogLevel.Debug) {
                 level = 'debug';
             } else if (logLevel === LogLevel.Info) {
                 level = 'info';
-            } else if (logLevel === LogLevel.Warn) {
+            } else {
                 level = 'warn';
             }
 
@@ -129,6 +131,8 @@ export class GTagLogger extends Logger {
 
         const customMap = this.getCustomMap(mappedProps, pageViewInfo && pageViewInfo.custom_map ? pageViewInfo.custom_map : undefined);
         if (customMap) {
+            this.setMappedUserProps(mappedProps, customMap);
+
             this._gtag('config', this._options.measurementId, {
                 custom_map: customMap
             });
@@ -156,6 +160,8 @@ export class GTagLogger extends Logger {
 
         const customMap = this.getCustomMap(mappedProps, pageViewInfo && pageViewInfo.custom_map ? pageViewInfo.custom_map : undefined);
         if (customMap) {
+            this.setMappedUserProps(mappedProps, customMap);
+
             this._gtag('config', this._options.measurementId, {
                 custom_map: customMap
             });
@@ -194,6 +200,8 @@ export class GTagLogger extends Logger {
 
         const customMap = this.getCustomMap(mappedProps, eventInfo && eventInfo.custom_map ? eventInfo.custom_map : undefined);
         if (customMap) {
+            this.setMappedUserProps(mappedProps, customMap);
+
             this._gtag('config', this._options.measurementId, {
                 custom_map: customMap
             });
@@ -217,6 +225,8 @@ export class GTagLogger extends Logger {
 
         const customMap = this.getCustomMap(mappedProps, eventInfo && eventInfo.custom_map ? eventInfo.custom_map : undefined);
         if (customMap) {
+            this.setMappedUserProps(mappedProps, customMap);
+
             this._gtag('config', this._options.measurementId, {
                 custom_map: customMap
             });
@@ -234,6 +244,13 @@ export class GTagLogger extends Logger {
         currentCustomMap?: { [key: string]: string }): { [key: string]: string } | undefined {
         const customMap: { [key: string]: string } = {};
         const keys = Object.keys(properties);
+        if (this._options.userId && !keys.includes('user_id')) {
+            keys.push('user_id');
+        }
+        if (this._options.accountId && !keys.includes('account_id')) {
+            keys.push('account_id');
+        }
+
         const tempCustomMap: { [key: string]: string } = {
             ...this._options.customMap,
             ...currentCustomMap
@@ -253,11 +270,20 @@ export class GTagLogger extends Logger {
         return hasMap ? customMap : undefined;
     }
 
+    private setMappedUserProps(mappedProps: { [key: string]: any }, customMap: { [key: string]: string }): void {
+        if (this._options.userId && Object.values(customMap).find(v => v === 'user_id') != null) {
+            mappedProps.user_id = this._options.userId;
+        }
+        if (this._options.accountId && Object.values(customMap).find(v => v === 'account_id') != null) {
+            mappedProps.account_id = this._options.accountId;
+        }
+    }
+
     private getMappedPageViewProps(params?: PageViewTimingInfo): { [key: string]: any } {
         const mappedProps = this.getMappedProps(params);
 
         if (params) {
-            if (params.uri) {
+            if (params.uri != null) {
                 if (params.uri.startsWith('/')) {
                     mappedProps.page_path = params.uri;
                 } else {
@@ -265,15 +291,15 @@ export class GTagLogger extends Logger {
                 }
             }
 
-            if (params.ref_uri) {
+            if (params.ref_uri != null) {
                 mappedProps.ref_uri = params.ref_uri;
             }
 
-            if (params.page_type) {
+            if (params.page_type != null) {
                 mappedProps.page_type = params.page_type;
             }
 
-            if (params.is_logged_in) {
+            if (params.is_logged_in != null) {
                 mappedProps.is_logged_in = params.is_logged_in;
             }
         }
@@ -284,10 +310,10 @@ export class GTagLogger extends Logger {
     private getMappedEventProps(params?: EventTimingInfo): { [key: string]: any } {
         const mappedProps = this.getMappedProps(params);
         if (params) {
-            if (params.event_category) {
+            if (params.event_category != null) {
                 mappedProps.event_category = params.event_category;
             }
-            if (params.event_label) {
+            if (params.event_label != null) {
                 mappedProps.event_label = params.event_label;
             }
         }
@@ -309,11 +335,14 @@ export class GTagLogger extends Logger {
             };
         }
 
-        if (this._options.userId) {
-            mappedProps.user_id = this._options.userId;
-        }
-        if (this._options.accountId) {
-            mappedProps.account_id = this._options.accountId;
+        const customMap = this.getCustomMap(mappedProps, params && params.custom_map ? params.custom_map : undefined);
+        if (customMap) {
+            if (this._options.userId && Object.values(customMap).find(v => v === 'user_id') != null) {
+                mappedProps.user_id = this._options.userId;
+            }
+            if (this._options.accountId && Object.values(customMap).find(v => v === 'account_id') != null) {
+                mappedProps.account_id = this._options.accountId;
+            }
         }
 
         return mappedProps;

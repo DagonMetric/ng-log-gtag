@@ -20,7 +20,7 @@ module.exports = function (config) {
             clearContext: false // leave Jasmine Spec Runner output visible in browser
         },
         coverageIstanbulReporter: {
-            dir: require('path').join(__dirname, '../../dist/coverage/ng-log-applicationinsights'),
+            dir: require('path').join(__dirname, '../../dist/coverage/ng-log-gtag'),
             reports: ['html', 'lcovonly', 'text-summary', 'cobertura'],
             fixWebpackSourcePaths: true,
             thresholds: {
@@ -32,7 +32,7 @@ module.exports = function (config) {
         },
         reporters: ['progress', 'kjhtml'],
         junitReporter: {
-            outputDir: '../../dist/junit/ng-log-applicationinsights'
+            outputDir: '../../dist/junit/ng-log-gtag'
         },
         port: 9876,
         colors: true,
