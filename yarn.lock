@@ -330,10 +330,10 @@
     webpack-sources "^1.3.0"
     yargs "^13.2.4"
 
-"@dagonmetric/ng-log@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@dagonmetric/ng-log/-/ng-log-2.1.0.tgz#e6c10fd62729a8726a75e43a1ecfba68f3b2d119"
-  integrity sha512-x6hUuynslg90YUGIu5h9NCvXF5q6up9vuZP/H4msqelbVAWKa/jNjtE5/j5ngSq2Dfi45Dfnq3fb9O5jmiz5rQ==
+"@dagonmetric/ng-log@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@dagonmetric/ng-log/-/ng-log-2.1.1.tgz#cf4ea668a4dd0ff5cf0377877afcfe409c08fc63"
+  integrity sha512-hQdlBNjQiES5CTZAzuo8Mgk7nDrlFS0etWN/tMHtF0ywkf1hZgMzpBlK2Lc4B9JjBjsn62+yV58Jn6plBxGVkQ==
   dependencies:
     tslib "^1.10.0"
 
