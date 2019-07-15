@@ -1,15 +1,11 @@
+# Angular Google Analytics (gtag.js) Implementation for NG-LOG
+
 [![Build Status](https://dev.azure.com/DagonMetric/ng-log-gtag/_apis/build/status/DagonMetric.ng-log-gtag?branchName=master)](https://dev.azure.com/DagonMetric/ng-log-gtag/_build/latest?definitionId=12&branchName=master)
-[![Build status](https://ci.appveyor.com/api/projects/status/l5f5i4rei8i7d3t5/branch/master?svg=true)](https://ci.appveyor.com/project/admindagonmetriccom/ng-log-gtag/branch/master)
 [![codecov](https://codecov.io/gh/DagonMetric/ng-log-gtag/branch/master/graph/badge.svg)](https://codecov.io/gh/DagonMetric/ng-log-gtag)
 [![npm version](https://img.shields.io/npm/v/@dagonmetric/ng-log-gtag.svg)](https://www.npmjs.com/package/@dagonmetric/ng-log-gtag)
-[![Dependency Status](https://david-dm.org/DagonMetric/ng-log-gtag.svg)](https://david-dm.org/DagonMetric/ng-log-gtag)
 [![Gitter](https://badges.gitter.im/DagonMetric/general.svg)](https://gitter.im/DagonMetric/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-# Google Analytics (gtag.js) Logger Integration for Angular
-
-Google Analytics Global Site Tag [gtag.js](https://developers.google.com/gtagjs) integration/plugin for [@dagonmetric/ng-log](https://github.com/DagonMetric/ng-log) - logging, analytics and telemetry client for Angular.
-
-[WIP]
+Google Analytics Global Site Tag [gtag.js](https://developers.google.com/gtagjs) implementation/integration for [@dagonmetric/ng-log](https://github.com/DagonMetric/ng-log) - logging, analytics and telemetry client for Angular applications.
 
 ## Getting Started
 
@@ -138,9 +134,10 @@ export class AppComponent implements OnInit {
 }
 ```
 
-## Documentation
+## Related Projects
 
-For more configuring information, see [GTagLoggerModule wiki](https://github.com/DagonMetric/ng-log/wiki/GTagLoggerModule).
+* [ng-log](https://github.com/DagonMetric/ng-log) - Angular logging and telemetry service abstractions and some implementations
+* [ng-log-applicationinsights](https://github.com/DagonMetric/ng-log-applicationinsights) - Microsoft Azure Application Insights implementation for `ng-log`
 
 ## Feedback and Contributing
 
