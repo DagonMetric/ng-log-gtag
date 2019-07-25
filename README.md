@@ -1,4 +1,4 @@
-# Angular Google Analytics (gtag.js) Implementation for NG-LOG
+# Angular Google Analytics Implementation for NG-LOG
 
 [![Build Status](https://dev.azure.com/DagonMetric/ng-log-gtag/_apis/build/status/DagonMetric.ng-log-gtag?branchName=master)](https://dev.azure.com/DagonMetric/ng-log-gtag/_build/latest?definitionId=12&branchName=master)
 [![codecov](https://codecov.io/gh/DagonMetric/ng-log-gtag/branch/master/graph/badge.svg)](https://codecov.io/gh/DagonMetric/ng-log-gtag)
