@@ -141,8 +141,7 @@ export class GTagLogger extends Logger {
         this._gtag('event', 'timing_complete', {
             ...mappedProps,
             name: 'page_view',
-            value: duration,
-            event_category: 'Page View'
+            value: duration
         });
 
         this._eventTiming.delete(name);
@@ -196,7 +195,7 @@ export class GTagLogger extends Logger {
         }
 
         const duration = Math.max(+new Date() - start, 0);
-        const mappedProps = this.getMappedEventProps(eventInfo);
+        const mappedProps = this.getMappedProps(eventInfo);
 
         const customMap = this.getCustomMap(mappedProps, eventInfo && eventInfo.custom_map ? eventInfo.custom_map : undefined);
         if (customMap) {
@@ -221,7 +220,7 @@ export class GTagLogger extends Logger {
             return;
         }
 
-        const mappedProps = this.getMappedEventProps(eventInfo);
+        const mappedProps = this.getMappedProps(eventInfo);
 
         const customMap = this.getCustomMap(mappedProps, eventInfo && eventInfo.custom_map ? eventInfo.custom_map : undefined);
         if (customMap) {
@@ -301,20 +300,6 @@ export class GTagLogger extends Logger {
 
             if (params.is_logged_in != null) {
                 mappedProps.is_logged_in = params.is_logged_in;
-            }
-        }
-
-        return mappedProps;
-    }
-
-    private getMappedEventProps(params?: EventTimingInfo): { [key: string]: any } {
-        const mappedProps = this.getMappedProps(params);
-        if (params) {
-            if (params.event_category != null) {
-                mappedProps.event_category = params.event_category;
-            }
-            if (params.event_label != null) {
-                mappedProps.event_label = params.event_label;
             }
         }
 
