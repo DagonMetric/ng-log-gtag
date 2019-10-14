@@ -103,7 +103,7 @@ describe('GTagLoggerProvider', () => {
         spyOn(currentLogger, 'stopTrackEvent');
 
         const name = 'event1';
-        const eventInfo = { event_category: 'test' };
+        const eventInfo = { properties: { key1: 'value1' } };
         loggerProvider.stopTrackEvent(name, eventInfo);
         expect(currentLogger.stopTrackEvent).toHaveBeenCalledWith(name, eventInfo);
     });

@@ -243,7 +243,6 @@ describe('GTagLogger', () => {
         };
         logger.startTrackEvent('event1');
         logger.stopTrackEvent('event1', {
-            event_category: 'test',
             properties: {
                 key1: 'value1'
             },
@@ -259,15 +258,11 @@ describe('GTagLogger', () => {
     it("should work with 'trackEvent'", () => {
         logger.trackEvent({
             name: 'event1',
-            event_category: 'test',
-            event_label: 'test',
             properties: {
                 key1: 'value1'
             }
         });
         expect(gtag).toHaveBeenCalledWith('event', 'event1', {
-            event_category: 'test',
-            event_label: 'test',
             key1: 'value1'
         });
         // tslint:disable-next-line: no-unsafe-any
