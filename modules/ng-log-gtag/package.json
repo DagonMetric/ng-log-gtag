@@ -13,13 +13,12 @@
   },
   "homepage": "https://github.com/dagonmetric/ng-log-gtag",
   "keywords": [
-    "ng-log",
-    "angular-analytics",
     "angular-gtag",
     "google-analytics",
     "global-site-tag",
     "gtag",
-    "angular-log-service",
+    "angular-analytics",
+    "angular-logging-service",
     "angular-logging",
     "angular-log",
     "angular-telemetry-client",
@@ -28,7 +27,8 @@
     "log",
     "telemetry-client",
     "telemetry",
-    "angular"
+    "angular",
+    "typescript"
   ],
   "sideEffects": false,
   "dependencies": {
