@@ -1,12 +1,12 @@
 # Angular Google Analytics Implementation for NG-LOG
 
-[![Build Status](https://dev.azure.com/DagonMetric/ng-log-gtag/_apis/build/status/DagonMetric.ng-log-gtag?branchName=master)](https://dev.azure.com/DagonMetric/ng-log-gtag/_build/latest?definitionId=12&branchName=master)
-[![CircleCI](https://circleci.com/gh/DagonMetric/ng-log-gtag.svg?style=svg)](https://circleci.com/gh/DagonMetric/ng-log-gtag)
+[![GitHub Actions Status](https://github.com/DagonMetric/ng-log-gtag/workflows/Main%20Workflow/badge.svg)](https://github.com/DagonMetric/ng-log-gtag/actions)
+[![Azure Pipelines Status](https://dev.azure.com/DagonMetric/ng-log-gtag/_apis/build/status/DagonMetric.ng-log-gtag?branchName=master)](https://dev.azure.com/DagonMetric/ng-log-gtag/_build/latest?definitionId=12&branchName=master)
 [![codecov](https://codecov.io/gh/DagonMetric/ng-log-gtag/branch/master/graph/badge.svg)](https://codecov.io/gh/DagonMetric/ng-log-gtag)
 [![npm version](https://img.shields.io/npm/v/@dagonmetric/ng-log-gtag.svg)](https://www.npmjs.com/package/@dagonmetric/ng-log-gtag)
 [![Gitter](https://badges.gitter.im/DagonMetric/general.svg)](https://gitter.im/DagonMetric/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Google Analytics Global Site Tag [gtag.js](https://developers.google.com/gtagjs) implementation/integration for [@dagonmetric/ng-log](https://github.com/DagonMetric/ng-log).
+Google Analytics Global Site Tag [gtag.js](https://developers.google.com/gtagjs) implementation/integration for [Dagonmetric/ng-log](https://github.com/DagonMetric/ng-log).
 
 ## Getting Started
 
@@ -136,6 +136,7 @@ export class AppComponent implements OnInit {
 * [ng-log](https://github.com/DagonMetric/ng-log) - Angular logging and telemetry service abstractions and some implementations
 * [ng-log-applicationinsights](https://github.com/DagonMetric/ng-log-applicationinsights) - Microsoft Azure Application Insights implementation for `ng-log`
 * [ng-log-firebase-analytics](https://github.com/DagonMetric/ng-log-firebase-analytics) - Firebase Analytics implementation for `ng-log`
+* [ng-log-facebook-analytics](https://github.com/DagonMetric/ng-log-facebook-analytics) - Facebook Pixel Analytics implementation for `ng-log`
 
 ## Feedback and Contributing
 
