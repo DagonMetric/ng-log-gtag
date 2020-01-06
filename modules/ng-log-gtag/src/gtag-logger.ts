@@ -208,7 +208,7 @@ export class GTagLogger extends Logger {
 
         this._gtag('event', 'timing_complete', {
             ...mappedProps,
-            name: name,
+            name,
             value: duration
         });
 

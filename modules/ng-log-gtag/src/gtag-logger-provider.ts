@@ -60,6 +60,7 @@ export class GTagLoggerProvider extends Logger implements LoggerProvider {
     }
 
     constructor(
+        // tslint:disable-next-line: ban-types
         @Inject(PLATFORM_ID) platformId: Object,
         @Optional() @Inject(GTAG_LOGGER_OPTIONS) options?: GTagLoggerOptions) {
         super();
