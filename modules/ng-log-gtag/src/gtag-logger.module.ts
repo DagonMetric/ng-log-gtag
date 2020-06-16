@@ -30,7 +30,7 @@ export class GTagLoggerModule {
      * Call this method to provide options for configuring the `GTagLoggerProvider`.
      * @param options An option object for `GTagLoggerProvider`.
      */
-    static withOptions(options: GTagLoggerOptions): ModuleWithProviders {
+    static withOptions(options: GTagLoggerOptions): ModuleWithProviders<GTagLoggerModule> {
         return {
             ngModule: GTagLoggerModule,
             providers: [
