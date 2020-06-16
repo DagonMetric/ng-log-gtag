@@ -1,7 +1,6 @@
 # Angular Google Analytics Implementation for NG-LOG
 
 [![GitHub Actions Status](https://github.com/DagonMetric/ng-log-gtag/workflows/Main%20Workflow/badge.svg)](https://github.com/DagonMetric/ng-log-gtag/actions)
-[![Azure Pipelines Status](https://dev.azure.com/DagonMetric/ng-log-gtag/_apis/build/status/DagonMetric.ng-log-gtag?branchName=master)](https://dev.azure.com/DagonMetric/ng-log-gtag/_build/latest?definitionId=12&branchName=master)
 [![codecov](https://codecov.io/gh/DagonMetric/ng-log-gtag/branch/master/graph/badge.svg)](https://codecov.io/gh/DagonMetric/ng-log-gtag)
 [![npm version](https://img.shields.io/npm/v/@dagonmetric/ng-log-gtag.svg)](https://www.npmjs.com/package/@dagonmetric/ng-log-gtag)
 [![Gitter](https://badges.gitter.im/DagonMetric/general.svg)](https://gitter.im/DagonMetric/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
