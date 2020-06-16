@@ -10,7 +10,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { LOGGER_PROVIDER } from '@dagonmetric/ng-log';
 
-import { GTAG_LOGGER_OPTIONS, GTagLoggerOptions } from './gtag-logger';
+import { GTAG_LOGGER_OPTIONS, GTagLoggerOptions } from './gtag-logger-options';
 import { GTagLoggerProvider } from './gtag-logger-provider';
 
 /**
