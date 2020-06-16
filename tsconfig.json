@@ -24,13 +24,6 @@
 
     "baseUrl": ".",
     "rootDir": ".",
-    "outDir": "./dist/out-tsc",
-
-    "plugins": [
-      {
-        "name": "typescript-tslint-plugin",
-        "configFile": "tslint.json"
-      }
-    ]
+    "outDir": "./out-tsc"
   }
 }
