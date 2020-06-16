@@ -6,8 +6,6 @@
  * found under the LICENSE file in the root directory of this source tree.
  */
 
-import { InjectionToken } from '@angular/core';
-
 import {
     EventInfo,
     EventTimingInfo,
@@ -19,18 +17,12 @@ import {
 } from '@dagonmetric/ng-log';
 
 import { GTag } from './gtag';
-
-export interface GTagLoggerOptions {
-    measurementId: string;
-    customMap?: { [key: string]: string };
-}
+import { GTagLoggerOptions } from './gtag-logger-options';
 
 export interface GTagLoggerOptionsInternal extends GTagLoggerOptions {
     userId?: string;
     accountId?: string;
 }
-
-export const GTAG_LOGGERoptions = new InjectionToken<GTagLoggerOptions>('GTagLoggerOptions');
 
 /**
  * Google global site tag implementation for `Logger`.
