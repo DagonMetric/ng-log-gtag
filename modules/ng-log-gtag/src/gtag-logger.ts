@@ -6,11 +6,17 @@
  * found under the LICENSE file in the root directory of this source tree.
  */
 
-// tslint:disable: no-any
-
 import { InjectionToken } from '@angular/core';
 
-import { EventInfo, EventTimingInfo, Logger, LogInfo, LogLevel, PageViewInfo, PageViewTimingInfo } from '@dagonmetric/ng-log';
+import {
+    EventInfo,
+    EventTimingInfo,
+    LogInfo,
+    LogLevel,
+    Logger,
+    PageViewInfo,
+    PageViewTimingInfo
+} from '@dagonmetric/ng-log';
 
 import { GTag } from './gtag';
 
@@ -24,23 +30,24 @@ export interface GTagLoggerOptionsInternal extends GTagLoggerOptions {
     accountId?: string;
 }
 
-export const GTAG_LOGGER_OPTIONS = new InjectionToken<GTagLoggerOptions>('GTagLoggerOptions');
+export const GTAG_LOGGERoptions = new InjectionToken<GTagLoggerOptions>('GTagLoggerOptions');
 
 /**
  * Google global site tag implementation for `Logger`.
  */
 export class GTagLogger extends Logger {
-    private readonly _eventTiming: Map<string, number> = new Map<string, number>();
+    private readonly eventTiming: Map<string, number> = new Map<string, number>();
 
     constructor(
         readonly name: string,
-        private readonly _options: GTagLoggerOptionsInternal,
-        private readonly _gtag?: GTag) {
+        private readonly options: GTagLoggerOptionsInternal,
+        private readonly gtag?: GTag
+    ) {
         super();
     }
 
     log(logLevel: LogLevel, message: string | Error, logInfo?: LogInfo): void {
-        if (!this._gtag || !this._options.measurementId || logLevel === LogLevel.None) {
+        if (!this.gtag || !this.options.measurementId || logLevel === LogLevel.None) {
             return;
         }
 
@@ -50,16 +57,19 @@ export class GTagLogger extends Logger {
             mappedProps.description = typeof message === 'string' ? message : `${message}`;
             mappedProps.fatal = logLevel === LogLevel.Critical;
 
-            const customMap = this.getCustomMap(mappedProps, logInfo && logInfo.custom_map ? logInfo.custom_map : undefined);
+            const customMap = this.getCustomMap(
+                mappedProps,
+                logInfo && logInfo.custom_map ? logInfo.custom_map : undefined
+            );
             if (customMap) {
                 this.setMappedUserProps(mappedProps, customMap);
 
-                this._gtag('config', this._options.measurementId, {
+                this.gtag('config', this.options.measurementId, {
                     custom_map: customMap
                 });
             }
 
-            this._gtag('event', 'exception', mappedProps);
+            this.gtag('event', 'exception', mappedProps);
         } else {
             let level: string;
             if (logLevel === LogLevel.Trace) {
@@ -75,12 +85,12 @@ export class GTagLogger extends Logger {
             mappedProps.message = typeof message === 'string' ? message : `${message}`;
             mappedProps.level = level;
 
-            this._gtag('event', 'trace', mappedProps);
+            this.gtag('event', 'trace', mappedProps);
         }
     }
 
     startTrackPage(name?: string): void {
-        if (!this._gtag || !this._options.measurementId) {
+        if (!this.gtag || !this.options.measurementId) {
             return;
         }
 
@@ -94,17 +104,19 @@ export class GTagLogger extends Logger {
             return;
         }
 
-        if (this._eventTiming.get(name) != null) {
-            console.error(`The 'startTrackPage' was called more than once for this event without calling stop, name: ${name}.`);
+        if (this.eventTiming.get(name) != null) {
+            console.error(
+                `The 'startTrackPage' was called more than once for this event without calling stop, name: ${name}.`
+            );
 
             return;
         }
 
-        this._eventTiming.set(name, +new Date());
+        this.eventTiming.set(name, +new Date());
     }
 
     stopTrackPage(name?: string, pageViewInfo?: PageViewTimingInfo): void {
-        if (!this._gtag || !this._options.measurementId) {
+        if (!this.gtag || !this.options.measurementId) {
             return;
         }
 
@@ -118,7 +130,7 @@ export class GTagLogger extends Logger {
             return;
         }
 
-        const start = this._eventTiming.get(name);
+        const start = this.eventTiming.get(name);
         if (start == null || isNaN(start)) {
             console.error(`The 'stopTrackPage' was called without a corresponding start, name: ${name}.`);
 
@@ -129,26 +141,29 @@ export class GTagLogger extends Logger {
         const mappedProps = this.getMappedPageViewProps(pageViewInfo);
         mappedProps.page_title = name;
 
-        const customMap = this.getCustomMap(mappedProps, pageViewInfo && pageViewInfo.custom_map ? pageViewInfo.custom_map : undefined);
+        const customMap = this.getCustomMap(
+            mappedProps,
+            pageViewInfo && pageViewInfo.custom_map ? pageViewInfo.custom_map : undefined
+        );
         if (customMap) {
             this.setMappedUserProps(mappedProps, customMap);
 
-            this._gtag('config', this._options.measurementId, {
+            this.gtag('config', this.options.measurementId, {
                 custom_map: customMap
             });
         }
 
-        this._gtag('event', 'timing_complete', {
+        this.gtag('event', 'timing_complete', {
             ...mappedProps,
             name: 'page_view',
             value: duration
         });
 
-        this._eventTiming.delete(name);
+        this.eventTiming.delete(name);
     }
 
     trackPageView(pageViewInfo?: PageViewInfo): void {
-        if (!this._gtag || !this._options.measurementId) {
+        if (!this.gtag || !this.options.measurementId) {
             return;
         }
 
@@ -157,37 +172,42 @@ export class GTagLogger extends Logger {
             mappedProps.page_title = pageViewInfo.name;
         }
 
-        const customMap = this.getCustomMap(mappedProps, pageViewInfo && pageViewInfo.custom_map ? pageViewInfo.custom_map : undefined);
+        const customMap = this.getCustomMap(
+            mappedProps,
+            pageViewInfo && pageViewInfo.custom_map ? pageViewInfo.custom_map : undefined
+        );
         if (customMap) {
             this.setMappedUserProps(mappedProps, customMap);
 
-            this._gtag('config', this._options.measurementId, {
+            this.gtag('config', this.options.measurementId, {
                 custom_map: customMap
             });
         }
-        this._gtag('config', this._options.measurementId, mappedProps);
+        this.gtag('config', this.options.measurementId, mappedProps);
     }
 
     startTrackEvent(name: string): void {
-        if (!this._gtag || !this._options.measurementId) {
+        if (!this.gtag || !this.options.measurementId) {
             return;
         }
 
-        if (this._eventTiming.get(name) != null) {
-            console.error(`The 'startTrackEvent' was called more than once for this event without calling stop, name: ${name}.`);
+        if (this.eventTiming.get(name) != null) {
+            console.error(
+                `The 'startTrackEvent' was called more than once for this event without calling stop, name: ${name}.`
+            );
 
             return;
         }
 
-        this._eventTiming.set(name, +new Date());
+        this.eventTiming.set(name, +new Date());
     }
 
     stopTrackEvent(name: string, eventInfo?: EventTimingInfo): void {
-        if (!this._gtag || !this._options.measurementId) {
+        if (!this.gtag || !this.options.measurementId) {
             return;
         }
 
-        const start = this._eventTiming.get(name);
+        const start = this.eventTiming.get(name);
         if (start == null || isNaN(start)) {
             console.error(`The 'stopTrackEvent' was called without a corresponding start, name: ${name}.`);
 
@@ -197,41 +217,47 @@ export class GTagLogger extends Logger {
         const duration = Math.max(+new Date() - start, 0);
         const mappedProps = this.getMappedProps(eventInfo);
 
-        const customMap = this.getCustomMap(mappedProps, eventInfo && eventInfo.custom_map ? eventInfo.custom_map : undefined);
+        const customMap = this.getCustomMap(
+            mappedProps,
+            eventInfo && eventInfo.custom_map ? eventInfo.custom_map : undefined
+        );
         if (customMap) {
             this.setMappedUserProps(mappedProps, customMap);
 
-            this._gtag('config', this._options.measurementId, {
+            this.gtag('config', this.options.measurementId, {
                 custom_map: customMap
             });
         }
 
-        this._gtag('event', 'timing_complete', {
+        this.gtag('event', 'timing_complete', {
             ...mappedProps,
             name,
             value: duration
         });
 
-        this._eventTiming.delete(name);
+        this.eventTiming.delete(name);
     }
 
     trackEvent(eventInfo: EventInfo): void {
-        if (!this._gtag || !this._options.measurementId) {
+        if (!this.gtag || !this.options.measurementId) {
             return;
         }
 
         const mappedProps = this.getMappedProps(eventInfo);
 
-        const customMap = this.getCustomMap(mappedProps, eventInfo && eventInfo.custom_map ? eventInfo.custom_map : undefined);
+        const customMap = this.getCustomMap(
+            mappedProps,
+            eventInfo && eventInfo.custom_map ? eventInfo.custom_map : undefined
+        );
         if (customMap) {
             this.setMappedUserProps(mappedProps, customMap);
 
-            this._gtag('config', this._options.measurementId, {
+            this.gtag('config', this.options.measurementId, {
                 custom_map: customMap
             });
         }
 
-        this._gtag('event', eventInfo.name, mappedProps);
+        this.gtag('event', eventInfo.name, mappedProps);
     }
 
     flush(): void {
@@ -239,46 +265,46 @@ export class GTagLogger extends Logger {
     }
 
     private getCustomMap(
-        properties: { [key: string]: any },
-        currentCustomMap?: { [key: string]: string }): { [key: string]: string } | undefined {
+        properties: { [key: string]: unknown },
+        currentCustomMap?: { [key: string]: string }
+    ): { [key: string]: string } | undefined {
         const customMap: { [key: string]: string } = {};
         const keys = Object.keys(properties);
-        if (this._options.userId && !keys.includes('user_id')) {
+        if (this.options.userId && !keys.includes('user_id')) {
             keys.push('user_id');
         }
-        if (this._options.accountId && !keys.includes('account_id')) {
+        if (this.options.accountId && !keys.includes('account_id')) {
             keys.push('account_id');
         }
 
         const tempCustomMap: { [key: string]: string } = {
-            ...this._options.customMap,
+            ...this.options.customMap,
             ...currentCustomMap
         };
 
         let hasMap = false;
 
-        Object.keys(tempCustomMap).forEach(key => {
+        Object.keys(tempCustomMap).forEach((key) => {
             const value = tempCustomMap[key];
             if (keys.includes(value)) {
                 customMap[key] = tempCustomMap[key];
                 hasMap = true;
             }
-
         });
 
         return hasMap ? customMap : undefined;
     }
 
-    private setMappedUserProps(mappedProps: { [key: string]: any }, customMap: { [key: string]: string }): void {
-        if (this._options.userId && Object.values(customMap).find(v => v === 'user_id') != null) {
-            mappedProps.user_id = this._options.userId;
+    private setMappedUserProps(mappedProps: { [key: string]: unknown }, customMap: { [key: string]: string }): void {
+        if (this.options.userId && Object.values(customMap).find((v) => v === 'user_id') != null) {
+            mappedProps.user_id = this.options.userId;
         }
-        if (this._options.accountId && Object.values(customMap).find(v => v === 'account_id') != null) {
-            mappedProps.account_id = this._options.accountId;
+        if (this.options.accountId && Object.values(customMap).find((v) => v === 'account_id') != null) {
+            mappedProps.account_id = this.options.accountId;
         }
     }
 
-    private getMappedPageViewProps(params?: PageViewTimingInfo): { [key: string]: any } {
+    private getMappedPageViewProps(params?: PageViewTimingInfo): { [key: string]: unknown } {
         const mappedProps = this.getMappedProps(params);
 
         if (params) {
@@ -309,9 +335,9 @@ export class GTagLogger extends Logger {
     private getMappedProps(params?: {
         custom_map?: { [key: string]: string };
         measurements?: { [key: string]: number };
-        properties?: { [key: string]: any };
-    }): { [key: string]: any } {
-        let mappedProps: { [key: string]: any } = {};
+        properties?: { [key: string]: unknown };
+    }): { [key: string]: unknown } {
+        let mappedProps: { [key: string]: unknown } = {};
 
         if (params) {
             mappedProps = {
@@ -322,11 +348,11 @@ export class GTagLogger extends Logger {
 
         const customMap = this.getCustomMap(mappedProps, params && params.custom_map ? params.custom_map : undefined);
         if (customMap) {
-            if (this._options.userId && Object.values(customMap).find(v => v === 'user_id') != null) {
-                mappedProps.user_id = this._options.userId;
+            if (this.options.userId && Object.values(customMap).find((v) => v === 'user_id') != null) {
+                mappedProps.user_id = this.options.userId;
             }
-            if (this._options.accountId && Object.values(customMap).find(v => v === 'account_id') != null) {
-                mappedProps.account_id = this._options.accountId;
+            if (this.options.accountId && Object.values(customMap).find((v) => v === 'account_id') != null) {
+                mappedProps.account_id = this.options.accountId;
             }
         }
 
