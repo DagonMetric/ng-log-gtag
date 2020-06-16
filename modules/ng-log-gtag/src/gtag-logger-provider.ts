@@ -21,7 +21,8 @@ import {
 } from '@dagonmetric/ng-log';
 
 import { GTag } from './gtag';
-import { GTAG_LOGGERoptions, GTagLogger, GTagLoggerOptions, GTagLoggerOptionsInternal } from './gtag-logger';
+import { GTagLogger, GTagLoggerOptionsInternal } from './gtag-logger';
+import { GTAG_LOGGER_OPTIONS, GTagLoggerOptions } from './gtag-logger-options';
 
 declare let gtag: GTag;
 
@@ -59,7 +60,7 @@ export class GTagLoggerProvider extends Logger implements LoggerProvider {
     constructor(
         // eslint-disable-next-line @typescript-eslint/ban-types
         @Inject(PLATFORM_ID) platformId: Object,
-        @Optional() @Inject(GTAG_LOGGERoptions) options?: GTagLoggerOptions
+        @Optional() @Inject(GTAG_LOGGER_OPTIONS) options?: GTagLoggerOptions
     ) {
         super();
         this.isBrowser = isPlatformBrowser(platformId);
