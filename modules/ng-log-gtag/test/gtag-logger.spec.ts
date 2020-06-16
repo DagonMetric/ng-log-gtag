@@ -5,7 +5,7 @@ import { LogLevel } from '@dagonmetric/ng-log';
 import { GTagLogger } from '../src/gtag-logger';
 
 // tslint:disable-next-line: no-any
-declare var window: any;
+declare let window: any;
 
 describe('GTagLogger', () => {
     let logger: GTagLogger;
@@ -27,7 +27,8 @@ describe('GTagLogger', () => {
                 accountId: 'account1'
             },
             // tslint:disable-next-line: no-unsafe-any
-            gtag);
+            gtag
+        );
     });
 
     it("should work with 'log' method", () => {
@@ -90,7 +91,8 @@ describe('GTagLogger', () => {
         };
 
         logger.log(LogLevel.Critical, err, {
-            properties, custom_map: {
+            properties,
+            custom_map: {
                 dimension2: 'key1',
                 // Not used
                 dimension3: 'key3'
@@ -205,8 +207,9 @@ describe('GTagLogger', () => {
         spyOn(console, 'error');
 
         logger.startTrackPage('home1');
-        expect(console.error)
-            .toHaveBeenCalledWith("The 'startTrackPage' was called more than once for this event without calling stop, name: home1.");
+        expect(console.error).toHaveBeenCalledWith(
+            "The 'startTrackPage' was called more than once for this event without calling stop, name: home1."
+        );
     });
 
     it("should log an error when calling 'startTrackPage', 'stopTrackPage' or 'trackPageView' if name could not be detected", () => {
@@ -227,7 +230,9 @@ describe('GTagLogger', () => {
 
         logger.startTrackPage('home1');
         logger.stopTrackPage('home2');
-        expect(console.error).toHaveBeenCalledWith("The 'stopTrackPage' was called without a corresponding start, name: home2.");
+        expect(console.error).toHaveBeenCalledWith(
+            "The 'stopTrackPage' was called without a corresponding start, name: home2."
+        );
     });
 
     it("should work with 'startTrackEvent' and 'stopTrackEvent'", () => {
@@ -312,8 +317,9 @@ describe('GTagLogger', () => {
         spyOn(console, 'error');
 
         logger.startTrackEvent('event1');
-        expect(console.error)
-            .toHaveBeenCalledWith("The 'startTrackEvent' was called more than once for this event without calling stop, name: event1.");
+        expect(console.error).toHaveBeenCalledWith(
+            "The 'startTrackEvent' was called more than once for this event without calling stop, name: event1."
+        );
     });
 
     it("should log an error when calling 'stopTrackEvent' without a corresponding start", () => {
@@ -321,7 +327,9 @@ describe('GTagLogger', () => {
 
         logger.startTrackEvent('event1');
         logger.stopTrackEvent('event2');
-        expect(console.error).toHaveBeenCalledWith("The 'stopTrackEvent' was called without a corresponding start, name: event2.");
+        expect(console.error).toHaveBeenCalledWith(
+            "The 'stopTrackEvent' was called without a corresponding start, name: event2."
+        );
     });
 
     it("should not track when no 'measurementId' or no 'gtag'", () => {
@@ -331,12 +339,11 @@ describe('GTagLogger', () => {
                 measurementId: ''
             },
             // tslint:disable-next-line: no-unsafe-any
-            gtag);
-        const loggerWithoutGTag = new GTagLogger(
-            'test',
-            {
-                measurementId: ''
-            });
+            gtag
+        );
+        const loggerWithoutGTag = new GTagLogger('test', {
+            measurementId: ''
+        });
 
         loggerWithoutKey.log(LogLevel.Warn, 'This message will not be tracked.');
         loggerWithoutGTag.log(LogLevel.Warn, 'This message will not be tracked.');

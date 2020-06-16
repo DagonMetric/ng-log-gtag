@@ -7,7 +7,7 @@ import { GTAG_LOGGER_OPTIONS, GTagLogger } from '../src/gtag-logger';
 import { GTagLoggerProvider } from '../src/gtag-logger-provider';
 
 // tslint:disable-next-line: no-any
-declare var window: any;
+declare let window: any;
 
 describe('GTagLoggerProvider', () => {
     let loggerProvider: GTagLoggerProvider;
@@ -31,9 +31,7 @@ describe('GTagLoggerProvider', () => {
             ]
         });
 
-        loggerProvider =
-            TestBed.get<GTagLoggerProvider>(GTagLoggerProvider) as GTagLoggerProvider;
-
+        loggerProvider = TestBed.get<GTagLoggerProvider>(GTagLoggerProvider) as GTagLoggerProvider;
     });
 
     it('should be created', () => {

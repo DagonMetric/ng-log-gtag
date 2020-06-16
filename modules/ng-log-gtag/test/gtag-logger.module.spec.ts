@@ -11,9 +11,7 @@ import { GTagLoggerModule } from '../src/gtag-logger.module';
 describe('GTagLoggerModule', () => {
     it("should provide 'GTagLoggerProvider'", () => {
         TestBed.configureTestingModule({
-            imports: [
-                GTagLoggerModule
-            ]
+            imports: [GTagLoggerModule]
         });
 
         const loggerProviders = TestBed.get<GTagLoggerProvider[]>(LOGGER_PROVIDER);
