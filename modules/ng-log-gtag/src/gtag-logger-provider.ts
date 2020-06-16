@@ -12,16 +12,16 @@ import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
 import {
     EventInfo,
     EventTimingInfo,
-    Logger,
-    LoggerProvider,
     LogInfo,
     LogLevel,
+    Logger,
+    LoggerProvider,
     PageViewInfo,
     PageViewTimingInfo
 } from '@dagonmetric/ng-log';
 
 import { GTag } from './gtag';
-import { GTAG_LOGGER_OPTIONS, GTagLogger, GTagLoggerOptions, GTagLoggerOptionsInternal } from './gtag-logger';
+import { GTAG_LOGGERoptions, GTagLogger, GTagLoggerOptions, GTagLoggerOptionsInternal } from './gtag-logger';
 
 declare let gtag: GTag;
 
@@ -32,75 +32,69 @@ declare let gtag: GTag;
     providedIn: 'root'
 })
 export class GTagLoggerProvider extends Logger implements LoggerProvider {
-    private readonly _options: GTagLoggerOptionsInternal;
+    private readonly options: GTagLoggerOptionsInternal;
 
-    private readonly _isBrowser: boolean;
-    private _currentLogger?: GTagLogger;
-    private readonly _gtag?: GTag;
+    private readonly isBrowser: boolean;
+    private currentLoggerInternal?: GTagLogger;
+    private readonly gtag?: GTag;
 
     get name(): string {
         return 'gtag';
     }
 
     get currentLogger(): GTagLogger {
-        if (this._currentLogger) {
-            return this._currentLogger;
+        if (this.currentLoggerInternal) {
+            return this.currentLoggerInternal;
         }
 
-        this._currentLogger = new GTagLogger(
-            '',
-            this._options,
-            this._gtag);
+        this.currentLoggerInternal = new GTagLogger('', this.options, this.gtag);
 
-        return this._currentLogger;
+        return this.currentLoggerInternal;
     }
 
     set measurementId(value: string) {
-        this._options.measurementId = value;
+        this.options.measurementId = value;
     }
 
     constructor(
-        // tslint:disable-next-line: ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         @Inject(PLATFORM_ID) platformId: Object,
-        @Optional() @Inject(GTAG_LOGGER_OPTIONS) options?: GTagLoggerOptions) {
+        @Optional() @Inject(GTAG_LOGGERoptions) options?: GTagLoggerOptions
+    ) {
         super();
-        this._isBrowser = isPlatformBrowser(platformId);
-        this._options = {
+        this.isBrowser = isPlatformBrowser(platformId);
+        this.options = {
             measurementId: '',
             ...options
         };
 
         // tslint:disable-next-line: no-typeof-undefined
-        if (this._isBrowser && typeof gtag !== 'undefined') {
+        if (this.isBrowser && typeof gtag !== 'undefined') {
             // tslint:disable-next-line: no-any
-            this._gtag = gtag;
+            this.gtag = gtag;
         }
-
     }
 
     createLogger(category: string): Logger {
-        return new GTagLogger(
-            category,
-            this._options,
-            this._gtag);
+        return new GTagLogger(category, this.options, this.gtag);
     }
 
     setUserProperties(userId: string, accountId?: string): void {
-        this._options.userId = userId;
-        this._options.accountId = accountId;
+        this.options.userId = userId;
+        this.options.accountId = accountId;
 
-        // if (!this._isBrowser || !this._gtag || !this._options.measurementId) {
+        // if (!this.isBrowser || !this.gtag || !this.options.measurementId) {
         //     return;
         // }
 
-        // this._gtag('config', this._options.measurementId, {
+        // this.gtag('config', this.options.measurementId, {
         //     user_id: userId
         // });
     }
 
     clearUserProperties(): void {
-        this._options.userId = undefined;
-        this._options.accountId = undefined;
+        this.options.userId = undefined;
+        this.options.accountId = undefined;
     }
 
     log(logLevel: LogLevel, message: string | Error, logInfo?: LogInfo): void {
