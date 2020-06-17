@@ -46,6 +46,7 @@ export class GTagLogger extends Logger {
         const mappedProps = this.getMappedProps(logInfo);
 
         if (logLevel === LogLevel.Error || logLevel === LogLevel.Critical) {
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             mappedProps.description = typeof message === 'string' ? message : `${message}`;
             mappedProps.fatal = logLevel === LogLevel.Critical;
 
@@ -74,6 +75,7 @@ export class GTagLogger extends Logger {
                 level = 'warn';
             }
 
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             mappedProps.message = typeof message === 'string' ? message : `${message}`;
             mappedProps.level = level;
 
