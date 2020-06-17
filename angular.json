@@ -24,7 +24,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "modules/ng-log-gtag/test.ts",
-            "tsConfig": "modules/ng-log-gtag/tsconfig-test.json",
+            "tsConfig": "modules/ng-log-gtag/tsconfig.test.json",
             "karmaConfig": "modules/ng-log-gtag/karma.conf.js",
             "codeCoverageExclude": [
               "**/test.ts",
@@ -34,23 +34,12 @@
           },
           "configurations": {
             "ci": {
-              "browsers": "ChromeHeadless",
+              "browsers": "ChromeHeadlessCI",
               "reporters": ["progress", "junit"],
               "codeCoverage": true,
               "watch": false,
               "progress": false
             }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
