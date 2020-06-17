@@ -24,6 +24,11 @@
 
     "baseUrl": ".",
     "rootDir": ".",
-    "outDir": "./out-tsc"
+    "outDir": "./out-tsc",
+
+
+    "paths": {
+      "@dagonmetric/ng-log-gtag": ["./modules/ng-log-gtag"]
+    }
   }
 }
