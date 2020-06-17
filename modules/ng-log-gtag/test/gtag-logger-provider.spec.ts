@@ -1,19 +1,21 @@
-// tslint:disable: no-floating-promises
+/* eslint-disable @typescript-eslint/unbound-method */
+
 import { TestBed } from '@angular/core/testing';
 
 import { LogLevel } from '@dagonmetric/ng-log';
 
-import { GTAG_LOGGER_OPTIONS, GTagLogger } from '../src/gtag-logger';
+import { GTagLogger } from '../src/gtag-logger';
+import { GTAG_LOGGER_OPTIONS } from '../src/gtag-logger-options';
 import { GTagLoggerProvider } from '../src/gtag-logger-provider';
 
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let window: any;
 
 describe('GTagLoggerProvider', () => {
     let loggerProvider: GTagLoggerProvider;
 
     beforeEach(() => {
-        // tslint:disable-next-line: no-unsafe-any
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         window.gtag = jasmine.createSpy('gtag');
 
         TestBed.configureTestingModule({
@@ -31,12 +33,12 @@ describe('GTagLoggerProvider', () => {
             ]
         });
 
-        loggerProvider = TestBed.get<GTagLoggerProvider>(GTagLoggerProvider) as GTagLoggerProvider;
+        loggerProvider = TestBed.inject<GTagLoggerProvider>(GTagLoggerProvider);
     });
 
     it('should be created', () => {
-        expect(loggerProvider).toBeDefined();
-        expect(loggerProvider.name).toBe('gtag');
+        void expect(loggerProvider).toBeDefined();
+        void expect(loggerProvider.name).toBe('gtag');
 
         // Coverage only
         loggerProvider.setUserProperties('user1', 'account1');
@@ -46,8 +48,9 @@ describe('GTagLoggerProvider', () => {
 
     it("should create a new logger instance with 'createLogger' method", () => {
         const logger = loggerProvider.createLogger('test');
-        expect(logger instanceof GTagLogger).toBeTruthy();
-        expect((logger as GTagLogger).name).toBe('test');
+
+        void expect(logger instanceof GTagLogger).toBeTruthy();
+        void expect((logger as GTagLogger).name).toBe('test');
     });
 
     it("should work with 'log'", () => {
@@ -58,6 +61,7 @@ describe('GTagLoggerProvider', () => {
         const msg = 'This is a message.';
         const logInfo = { properties: { key1: 'value1' } };
         loggerProvider.log(logLevel, msg, logInfo);
+
         expect(currentLogger.log).toHaveBeenCalledWith(logLevel, msg, logInfo);
     });
 
@@ -66,6 +70,7 @@ describe('GTagLoggerProvider', () => {
         spyOn(currentLogger, 'startTrackPage');
 
         loggerProvider.startTrackPage('page1');
+
         expect(currentLogger.startTrackPage).toHaveBeenCalledWith('page1');
     });
 
@@ -76,6 +81,7 @@ describe('GTagLoggerProvider', () => {
         const name = 'page1';
         const pageViewInfo = { uri: '/home' };
         loggerProvider.stopTrackPage(name, pageViewInfo);
+
         expect(currentLogger.stopTrackPage).toHaveBeenCalledWith(name, pageViewInfo);
     });
 
@@ -85,6 +91,7 @@ describe('GTagLoggerProvider', () => {
 
         const pageViewInfo = { name: 'page1', uri: '/home' };
         loggerProvider.trackPageView(pageViewInfo);
+
         expect(currentLogger.trackPageView).toHaveBeenCalledWith(pageViewInfo);
     });
 
@@ -93,6 +100,7 @@ describe('GTagLoggerProvider', () => {
         spyOn(currentLogger, 'startTrackEvent');
 
         loggerProvider.startTrackEvent('event1');
+
         expect(currentLogger.startTrackEvent).toHaveBeenCalledWith('event1');
     });
 
@@ -103,6 +111,7 @@ describe('GTagLoggerProvider', () => {
         const name = 'event1';
         const eventInfo = { properties: { key1: 'value1' } };
         loggerProvider.stopTrackEvent(name, eventInfo);
+
         expect(currentLogger.stopTrackEvent).toHaveBeenCalledWith(name, eventInfo);
     });
 
@@ -112,6 +121,7 @@ describe('GTagLoggerProvider', () => {
 
         const eventInfo = { name: 'event1', eventCategory: 'test' };
         loggerProvider.trackEvent(eventInfo);
+
         expect(currentLogger.trackEvent).toHaveBeenCalledWith(eventInfo);
     });
 
@@ -120,6 +130,7 @@ describe('GTagLoggerProvider', () => {
         spyOn(currentLogger, 'flush');
 
         loggerProvider.flush();
-        expect(currentLogger.flush).toHaveBeenCalled();
+
+        void expect(currentLogger.flush).toHaveBeenCalled();
     });
 });

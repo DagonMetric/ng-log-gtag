@@ -1,10 +1,8 @@
-// tslint:disable: no-floating-promises
-
 import { TestBed } from '@angular/core/testing';
 
 import { LOGGER_PROVIDER, LoggerProvider } from '@dagonmetric/ng-log';
 
-import { GTAG_LOGGER_OPTIONS, GTagLoggerOptions } from '../src/gtag-logger';
+import { GTAG_LOGGER_OPTIONS, GTagLoggerOptions } from '../src/gtag-logger-options';
 import { GTagLoggerProvider } from '../src/gtag-logger-provider';
 import { GTagLoggerModule } from '../src/gtag-logger.module';
 
@@ -14,10 +12,10 @@ describe('GTagLoggerModule', () => {
             imports: [GTagLoggerModule]
         });
 
-        const loggerProviders = TestBed.get<GTagLoggerProvider[]>(LOGGER_PROVIDER);
+        const loggerProviders = TestBed.inject<GTagLoggerProvider[]>(LOGGER_PROVIDER);
 
-        expect(loggerProviders).toBeDefined();
-        expect((loggerProviders as LoggerProvider[])[0] instanceof GTagLoggerProvider).toBeTruthy();
+        void expect(loggerProviders).toBeDefined();
+        void expect((loggerProviders as LoggerProvider[])[0] instanceof GTagLoggerProvider).toBeTruthy();
     });
 
     describe('withOptions', () => {
@@ -30,10 +28,10 @@ describe('GTagLoggerModule', () => {
                 ]
             });
 
-            const options = TestBed.get<GTagLoggerOptions>(GTAG_LOGGER_OPTIONS) as GTagLoggerOptions;
+            const options = TestBed.inject<GTagLoggerOptions>(GTAG_LOGGER_OPTIONS);
 
-            expect(options).toBeDefined();
-            expect(options.measurementId).toBe('UA-111111111-1');
+            void expect(options).toBeDefined();
+            void expect(options.measurementId).toBe('UA-111111111-1');
         });
     });
 });

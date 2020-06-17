@@ -1,19 +1,18 @@
-// tslint:disable: no-floating-promises
-
 import { LogLevel } from '@dagonmetric/ng-log';
 
 import { GTagLogger } from '../src/gtag-logger';
 
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let window: any;
 
 describe('GTagLogger', () => {
     let logger: GTagLogger;
-    // tslint:disable-next-line: no-any
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let gtag: any;
 
     beforeEach(() => {
-        // tslint:disable-next-line: no-unsafe-any
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         window.gtag = gtag = jasmine.createSpy('gtag');
 
         logger = new GTagLogger(
@@ -26,7 +25,6 @@ describe('GTagLogger', () => {
                 userId: 'user1',
                 accountId: 'account1'
             },
-            // tslint:disable-next-line: no-unsafe-any
             gtag
         );
     });
@@ -40,6 +38,7 @@ describe('GTagLogger', () => {
 
         logger.log(LogLevel.Trace, err, { properties });
         expect(gtag).toHaveBeenCalledWith('event', 'trace', {
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             message: `${err}`,
             level: 'trace',
             key1: 'value1'
@@ -75,13 +74,14 @@ describe('GTagLogger', () => {
 
         logger.log(LogLevel.Critical, err, { properties });
         expect(gtag).toHaveBeenCalledWith('event', 'exception', {
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             description: `${err}`,
             fatal: true,
             key1: 'value1'
         });
 
-        // tslint:disable-next-line: no-unsafe-any
-        expect(gtag.calls.count()).toEqual(6);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        void expect(gtag.calls.count()).toEqual(6);
     });
 
     it("should work with 'log' exception with custom dimensions and metric", () => {
@@ -104,28 +104,30 @@ describe('GTagLogger', () => {
             }
         });
         expect(gtag).toHaveBeenCalledWith('event', 'exception', {
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             description: `${err}`,
             fatal: true,
             key1: 'value1'
         });
 
-        // tslint:disable-next-line: no-unsafe-any
-        expect(gtag.calls.count()).toEqual(2);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        void expect(gtag.calls.count()).toEqual(2);
     });
 
     it("should not track 'log' when 'logLevel' is 'None'", () => {
         logger.log(LogLevel.None, 'This is a message.');
 
-        // tslint:disable-next-line: no-unsafe-any
-        expect(gtag.calls.count()).toEqual(0);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        void expect(gtag.calls.count()).toEqual(0);
     });
 
     it("should work with 'startTrackPage' and 'stopTrackPage'", () => {
         logger.startTrackPage('home');
         logger.stopTrackPage('home');
-        expect(gtag).toHaveBeenCalled();
-        // tslint:disable-next-line: no-unsafe-any
-        expect(gtag.calls.count()).toEqual(1);
+        void expect(gtag).toHaveBeenCalled();
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        void expect(gtag.calls.count()).toEqual(1);
     });
 
     it("should work with 'stopTrackPage' with dimension", () => {
@@ -141,8 +143,9 @@ describe('GTagLogger', () => {
         expect(gtag).toHaveBeenCalledWith('config', 'UA-111111111-1', {
             custom_map: customMap
         });
-        // tslint:disable-next-line: no-unsafe-any
-        expect(gtag.calls.count()).toEqual(2);
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        void expect(gtag.calls.count()).toEqual(2);
     });
 
     it("should work with 'trackPageView'", () => {
@@ -164,8 +167,9 @@ describe('GTagLogger', () => {
             page_type: 'formPage',
             is_logged_in: false
         });
-        // tslint:disable-next-line: no-unsafe-any
-        expect(gtag.calls.count()).toEqual(1);
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        void expect(gtag.calls.count()).toEqual(1);
     });
 
     it("should work with 'trackPageView' with dimensions and metrics", () => {
@@ -197,8 +201,9 @@ describe('GTagLogger', () => {
             user_id: 'user1',
             account_id: 'account1'
         });
-        // tslint:disable-next-line: no-unsafe-any
-        expect(gtag.calls.count()).toEqual(2);
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        void expect(gtag.calls.count()).toEqual(2);
     });
 
     it("should log an error when 'startTrackPage' was called more than once for the same event without calling stop", () => {
@@ -239,7 +244,8 @@ describe('GTagLogger', () => {
         const eventName = 'event1';
         logger.startTrackEvent(eventName);
         logger.stopTrackEvent(eventName);
-        expect(gtag).toHaveBeenCalled();
+
+        void expect(gtag).toHaveBeenCalled();
     });
 
     it("should work with 'stopTrackEvent' with dimension", () => {
@@ -256,8 +262,9 @@ describe('GTagLogger', () => {
         expect(gtag).toHaveBeenCalledWith('config', 'UA-111111111-1', {
             custom_map: customMap
         });
-        // tslint:disable-next-line: no-unsafe-any
-        expect(gtag.calls.count()).toEqual(2);
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        void expect(gtag.calls.count()).toEqual(2);
     });
 
     it("should work with 'trackEvent'", () => {
@@ -270,8 +277,9 @@ describe('GTagLogger', () => {
         expect(gtag).toHaveBeenCalledWith('event', 'event1', {
             key1: 'value1'
         });
-        // tslint:disable-next-line: no-unsafe-any
-        expect(gtag.calls.count()).toEqual(1);
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        void expect(gtag.calls.count()).toEqual(1);
     });
 
     it("should work with 'trackEvent' with dimensions and metrics", () => {
@@ -307,8 +315,9 @@ describe('GTagLogger', () => {
             user_id: 'user1',
             account_id: 'account1'
         });
-        // tslint:disable-next-line: no-unsafe-any
-        expect(gtag.calls.count()).toEqual(2);
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        void expect(gtag.calls.count()).toEqual(2);
     });
 
     it("should log an error when 'startTrackEvent' was called more than once for the same event without calling stop", () => {
@@ -338,7 +347,6 @@ describe('GTagLogger', () => {
             {
                 measurementId: ''
             },
-            // tslint:disable-next-line: no-unsafe-any
             gtag
         );
         const loggerWithoutGTag = new GTagLogger('test', {
@@ -369,7 +377,7 @@ describe('GTagLogger', () => {
         // Coverage only
         logger.flush();
 
-        // tslint:disable-next-line: no-unsafe-any
-        expect(gtag.calls.count()).toEqual(0);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        void expect(gtag.calls.count()).toEqual(0);
     });
 });
