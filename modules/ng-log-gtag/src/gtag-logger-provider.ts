@@ -30,7 +30,7 @@ declare let gtag: GTag;
  * Logger provider factory for `GTagLogger`.
  */
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'any'
 })
 export class GTagLoggerProvider extends Logger implements LoggerProvider {
     private readonly options: GTagLoggerOptionsInternal;
