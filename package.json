@@ -1,6 +1,6 @@
 {
   "name": "ng-log-gtag",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "author": "DagonMetric",
   "license": "MIT",
   "repository": {
@@ -16,7 +16,8 @@
     "ngb": "ngb",
     "lint": "eslint -c .eslintrc.json --ext .js,.ts .",
     "build": "ngb build --env.prod",
-    "test": "ng test"
+    "test": "ng test",
+    "e2e": "ng e2e"
   },
   "dependencies": {
     "@angular/common": "^9.1.11",
