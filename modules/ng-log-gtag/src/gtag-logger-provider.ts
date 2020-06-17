@@ -69,9 +69,7 @@ export class GTagLoggerProvider extends Logger implements LoggerProvider {
             ...options
         };
 
-        // tslint:disable-next-line: no-typeof-undefined
         if (this.isBrowser && typeof gtag !== 'undefined') {
-            // tslint:disable-next-line: no-any
             this.gtag = gtag;
         }
     }
