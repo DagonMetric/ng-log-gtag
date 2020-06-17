@@ -1,6 +1,7 @@
-# Angular Google Analytics Implementation for NG-LOG
+# Angular Google Analytics Integration for NG-LOG
 
 [![GitHub Actions Status](https://github.com/DagonMetric/ng-log-gtag/workflows/Main%20Workflow/badge.svg)](https://github.com/DagonMetric/ng-log-gtag/actions)
+[![Azure Pipelines Status](https://dev.azure.com/DagonMetric/ng-log/_apis/build/status/DagonMetric.ng-log-gtag?branchName=master)](https://dev.azure.com/DagonMetric/ng-log/_build?definitionId=19)
 [![codecov](https://codecov.io/gh/DagonMetric/ng-log-gtag/branch/master/graph/badge.svg)](https://codecov.io/gh/DagonMetric/ng-log-gtag)
 [![npm version](https://badge.fury.io/js/%40dagonmetric%2Fng-log-gtag.svg)](https://www.npmjs.com/package/@dagonmetric/ng-log-gtag)
 [![Gitter](https://badges.gitter.im/DagonMetric/general.svg)](https://gitter.im/DagonMetric/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
@@ -11,7 +12,7 @@ Google Analytics Global Site Tag [gtag.js](https://developers.google.com/gtagjs)
 
 ### Add the global site tag
 
-Add gtag.js to your site from [developers.google.com/analytics/devguides/collection/gtagjs](https://developers.google.com/analytics/devguides/collection/gtagjs/).
+Add gtag.js to your site, see instruction from [developers.google.com/analytics/devguides/collection/gtagjs](https://developers.google.com/analytics/devguides/collection/gtagjs/).
 
 ### Installation
 
@@ -139,7 +140,7 @@ Live edit [app.component.ts in stackblitz](https://stackblitz.com/github/dagonme
 
 ## Feedback and Contributing
 
-Check out the [Contributing](https://github.com/DagonMetric/ng-log-gtag/blob/master/CONTRIBUTING.md) page to see the best places to log issues and start discussions.
+Check out the [Contributing](https://github.com/DagonMetric/ng-log-gtag/blob/master/CONTRIBUTING.md) page.
 
 ## License
 
