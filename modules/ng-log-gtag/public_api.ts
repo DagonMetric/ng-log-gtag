@@ -8,5 +8,4 @@
 
 export { GTagLoggerProvider } from './src/gtag-logger-provider';
 export { GTagLoggerModule } from './src/gtag-logger.module';
-export { GTagLogger } from './src/gtag-logger';
 export { GTAG_LOGGER_OPTIONS, GTagLoggerOptions } from './src/gtag-logger-options';
