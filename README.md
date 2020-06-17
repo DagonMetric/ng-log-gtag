@@ -62,31 +62,31 @@ import { LogService } from '@dagonmetric/ng-log';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  constructor(private readonly _logService: LogService) { }
+  constructor(private readonly logService: LogService) { }
 
   ngOnInit(): void {
     // Track traces
-    this._logService.trace('Testing trace');
-    this._logService.debug('Testing debug');
-    this._logService.info('Testing info');
-    this._logService.warn('Testing warn');
+    this.logService.trace('Testing trace');
+    this.logService.debug('Testing debug');
+    this.logService.info('Testing info');
+    this.logService.warn('Testing warn');
 
     // Track exceptions
-    this._logService.error(new Error('Testing error'));
-    this._logService.fatal(new Error('Testing critical'));
+    this.logService.error(new Error('Testing error'));
+    this.logService.fatal(new Error('Testing critical'));
 
     // Track page view
-    this._logService.trackPageView({
+    this.logService.trackPageView({
       name: 'My Angular App',
       uri: '/home'
     });
 
     // Track page view with timing
-    this._logService.startTrackPage('about');
-    this._logService.stopTrackPage('about', { uri: '/about' });
+    this.logService.startTrackPage('about');
+    this.logService.stopTrackPage('about', { uri: '/about' });
 
     // Track custom event
-    this._logService.trackEvent({
+    this.logService.trackEvent({
       name: 'video_auto_play_start',
       properties: {
         non_interaction: true
@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
     });
 
     // Track custom event with metrics
-    this._logService.trackEvent({
+    this.logService.trackEvent({
       name: 'foo',
       custom_map: {
         dimension2: 'age',
@@ -109,18 +109,18 @@ export class AppComponent implements OnInit {
     });
 
     // Track custom event with timing
-    this._logService.startTrackEvent('video_auto_play');
-    this._logService.stopTrackEvent('video_auto_play', {
+    this.logService.startTrackEvent('video_auto_play');
+    this.logService.stopTrackEvent('video_auto_play', {
       properties: {
         non_interaction: true
       }
     });
 
     // Set user properties
-    this._logService.setUserProperties('<Authenticated User Id>', '<Account Id>');
+    this.logService.setUserProperties('<Authenticated User Id>', '<Account Id>');
 
     // Clear user properties
-    this._logService.clearUserProperties();
+    this.logService.clearUserProperties();
   }
 }
 ```
