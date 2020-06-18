@@ -6,7 +6,7 @@
 [![npm version](https://badge.fury.io/js/%40dagonmetric%2Fng-log-gtag.svg)](https://www.npmjs.com/package/@dagonmetric/ng-log-gtag)
 [![Gitter](https://badges.gitter.im/DagonMetric/general.svg)](https://gitter.im/DagonMetric/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Google Analytics Global Site Tag [gtag.js](https://developers.google.com/gtagjs) implementation/integration for [DagonMetric/ng-log](https://github.com/DagonMetric/ng-log).
+Google Analytics Global Site Tag [gtag.js](https://developers.google.com/gtagjs) integration of [DagonMetric/ng-log](https://github.com/DagonMetric/ng-log) for Angular applications.
 
 ## Getting Started
 
