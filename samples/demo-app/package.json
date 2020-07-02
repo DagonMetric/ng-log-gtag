@@ -18,7 +18,7 @@
     "@angular/router": "^10.0.2",
     "@dagonmetric/ng-log": "^2.2.6",
     "@dagonmetric/ng-log-gtag": "^2.2.5",
-    "rxjs": "^6.5.5",
+    "rxjs": "^6.6.0",
     "tslib": "~2.0.0",
     "zone.js": "^0.10.3"
   },
