@@ -25,7 +25,7 @@
     "@angular/common": "^10.1.0",
     "@angular/core": "^10.1.0",
     "@dagonmetric/ng-log": "^2.2.6",
-    "rxjs": "^6.6.2",
+    "rxjs": "^6.6.3",
     "tslib": "~2.0.1"
   },
   "devDependencies": {
